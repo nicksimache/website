@@ -1,0 +1,17 @@
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px, 30%
+}
+
+.navbar li {
+    transition: all 0.2s;
+}
+
+ul {
+    flex: 1;
+    list-style: none;
+    text-align: center;
+}
