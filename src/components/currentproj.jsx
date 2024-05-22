@@ -33,16 +33,20 @@ const CurrentProject = () => {
         transform: 'translate(-50%, -50%)',
         width: showDiv ? '90vw' : '0',
         height: showDiv ? '90vh' : '0',
-        backgroundColor: 'white',
+        backgroundColor: 'rgb(36,36,36)',
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         overflow: 'hidden',
-        transition: 'width 0.2s ease-in-out, height 0.2s ease-in-out'
+        transition: 'width 0.2s ease-in-out, height 0.2s ease-in-out',
+        borderRadius: '10px',
     };
     
     const handleClick = () => {
-        setShowDiv(!showDiv);
+        setShowDiv(!showDiv)
+        
+    };
+
+    const handleDivClick = (e) => {
+        e.stopPropagation();
     };
 
     return (
@@ -66,8 +70,54 @@ const CurrentProject = () => {
             {showDiv && 
             <div
                 style={expandedDiv}
-                onClick={handleClick}
+                onClick={handleDivClick}
             >
+                <img
+                    src={'../../public/dungeongenerateexample.png'} 
+                    alt="Current Project"
+                    style={{height:'100%',
+                            width:'60vw',
+                            left: '0'
+                        }}
+                >
+                </img>
+                <div>
+                    <img
+                        src={'../../public/X.png'} 
+                        alt="Current Project"
+                        style={{right: '0',
+                                top: '0',
+                                width:'30px', 
+                                height:'30px',
+                                position: 'absolute',
+                                padding: '5px',
+                                cursor: 'pointer'
+                        }}
+                        onClick={handleClick}
+                    >
+                    </img>
+                    <h1 
+                        style={{
+                            padding: '30px',
+                            fontFamily: 'NunitoSans, sans-serif',
+                            fontSize: '40px',
+                            
+                        }}
+                    
+                    >
+                        Crypt Crawlers
+                    </h1>
+                    <p
+                        style={{
+                            padding: '30px',
+                            paddingLeft: '30px',
+                            fontFamily: 'NunitoSans, sans-serif',
+                            fontFize: '10px',
+                        }}
+                    >
+                        Developing crypt crawlers
+                    </p>
+                </div>
                 
                 
             </div>}
