@@ -12,7 +12,7 @@ const Navbar = () => {
 
     return (
         <div className="navbar">
-            <ul>
+            <ul className='navbarul'>
                 {listItems.map((item, index) => (
                     <li
                         key={index}

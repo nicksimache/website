@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../App.scss';
+import Reveal from './Reveal';
 
 const CurrentProject = () => {
 
@@ -31,8 +32,8 @@ const CurrentProject = () => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: showDiv ? '90vw' : '0',
-        height: showDiv ? '90vh' : '0',
+        width: showDiv ? '80vw' : '0',
+        height: showDiv ? '80vh' : '0',
         backgroundColor: 'rgb(36,36,36)',
         display: 'flex',
         overflow: 'hidden',
@@ -50,6 +51,7 @@ const CurrentProject = () => {
     };
 
     return (
+        <Reveal>
         <div 
             className='currentProject'
             onMouseEnter={() => setHovered(true)}
@@ -81,7 +83,11 @@ const CurrentProject = () => {
                         }}
                 >
                 </img>
-                <div>
+                <div
+                    style={{
+                        color: 'rgb(200,200,200)',
+                    }}
+                >
                     <img
                         src={'../../public/X.png'} 
                         alt="Current Project"
@@ -91,7 +97,7 @@ const CurrentProject = () => {
                                 height:'30px',
                                 position: 'absolute',
                                 padding: '5px',
-                                cursor: 'pointer'
+                                cursor: 'pointer',
                         }}
                         onClick={handleClick}
                     >
@@ -115,13 +121,14 @@ const CurrentProject = () => {
                             fontFize: '10px',
                         }}
                     >
-                        Developing crypt crawlers
+                        
                     </p>
                 </div>
                 
                 
             </div>}
         </div>
+        </Reveal>
     );
 }
 

@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react';
-import './App.scss'
-import Navbar from './components/navbar'
-import CurrentProject from './components/currentproj'
+import './App.scss';
+import Navbar from './components/navbar';
+import CurrentProject from './components/currentproj';
+import Intro from './components/intro';
 
 function App() {
 
@@ -27,6 +28,9 @@ function App() {
       <div>
         <Navbar />
       </div>
+
+      <Intro />
+
 
       <div style={main_style}>
         <CurrentProject />
