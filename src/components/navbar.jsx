@@ -6,7 +6,6 @@ const Navbar = () => {
     const listItems = [
         { text: 'About' },
         { text: 'Current' },
-        { text: 'Projects' },
         { text: 'Skills' }
     ];
 

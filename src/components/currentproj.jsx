@@ -16,7 +16,7 @@ const CurrentProject = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        color: hovered ? 'rgb(225, 225, 225)' : 'rgb(191, 191, 191)',
+        color: hovered ? 'rgb(121, 246, 252)' : 'rgb(191, 191, 191)',
         background: hovered ? 'rgba(50, 50, 50, 0.5)' : 'rgba(0, 0, 0, 0.5)',
         cursor: hovered ? 'pointer' : 'default',
         fontFamily: 'NunitoSans, sans-serif',
@@ -59,10 +59,11 @@ const CurrentProject = () => {
             onClick={handleClick}
         >
             <div 
-                className='overlay'
                 style={overlay_style}
             >
-                <h2>Currently Working On</h2>
+                {hovered && 
+                    <Reveal><h2>Currently Working On</h2></Reveal>
+                }
             </div>
             <img 
                 src={'../../public/dungeongenerateexample.png'} 

@@ -29,10 +29,13 @@ function App() {
         <Navbar />
       </div>
 
-      <Intro />
 
 
       <div style={main_style}>
+
+        <Intro />
+
+
         <CurrentProject />
       </div>
     </>

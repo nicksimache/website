@@ -7,20 +7,13 @@ const Intro = () => {
 
     return (
         <Reveal>
-            <ul>
-                <FadeIn>
-                    <li>
-                        123
-                    </li>
-                    <li>
-                        123
-                    </li>
-                    <li>
-                        123
-                    </li>
-                </FadeIn>
-
-            </ul>
+            <h1 className='name'>
+                Nick Sima<em>.</em>
+            </h1>
+            <p className='linklist'>
+                <a className='link' href='https://github.com/nicksimache'>Github⤴</a>
+                <a className ='link' href='https://www.linkedin.com/in/nick-sima-a64613235/'>LinkedIn⤴</a>
+            </p>
         </Reveal>
     );
 }

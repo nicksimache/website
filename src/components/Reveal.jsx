@@ -1,7 +1,7 @@
 import React, {Children, useEffect, useRef} from "react";
 import {motion, useInView, useAnimation} from "framer-motion";
 
-const Reveal = ({children}) => {
+const Reveal = ({children, delay}) => {
     return (
         <div
             style = {{position: 'relative', width: 'fit-content', overflow: 'hidden'}}
@@ -13,7 +13,7 @@ const Reveal = ({children}) => {
                 }}
                 initial="hidden"
                 animate="visible"
-                transition={{ duration: 0.5, delay: 0.25 }}
+                transition={{ duration: 0.4, delay: delay || 0 }}
             >
                 {children}
             </motion.div>
