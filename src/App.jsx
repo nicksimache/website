@@ -32,11 +32,13 @@ function App() {
 
 
       <div style={main_style}>
-
         <Intro />
 
+        <div style={{height:'160px'}}></div>
 
         <CurrentProject />
+
+        <div style={{height: '300px'}}></div>
       </div>
     </>
   )

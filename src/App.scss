@@ -69,14 +69,27 @@ $vib_blue: #79F6FC;
 .name {
     color: white;
     font-family: LemonMilkMed, sans-serif   ;
-    font-size: 40px;
+    font-size: 55px;
     margin: 0px;
+    margin-top: 60px;
 
     em {
         color:$vib_blue;
-        font-size: 40px;
         font-family: LemonMilkMed, sans-serif;
         font-style: normal;
+    }
+}
+
+.namesubheading {
+    color:white;
+    font-family: NunitoSans, sans-serif;
+    font-size: 25px;
+    margin:0px;
+
+    em {
+        font-style: normal;
+        color: $vib_blue;
+        font-weight: bold;
     }
 }
 
@@ -87,15 +100,23 @@ $vib_blue: #79F6FC;
 .link {
     
     padding-right: 5px;
-    font-size: 12px;
+    font-size: 11px;
     font-family: NunitoSans, sans-serif;
     color: $vib_blue;
     text-decoration: none;
     transform: translateY(-30px);
 
     &:hover {
+        font-weight: bold;
         color:white;
         text-decoration: underline;
     }
 
+}
+
+.description {
+    font-family: NunitoSans, sans-serif;
+    font-weight: bold;
+    font-size:20px;
+    color:white;
 }

@@ -52,17 +52,27 @@ const CurrentProject = () => {
 
     return (
         <Reveal>
-        <div 
+        <h1 
+            className='name'
+            style={{fontSize:'35px',
+                    marginBottom: '10px'
+            }}
+        >Currently Working On:</h1>
+        <div
             className='currentProject'
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             onClick={handleClick}
         >
-            <div 
+            <div
                 style={overlay_style}
             >
                 {hovered && 
-                    <Reveal><h2>Currently Working On</h2></Reveal>
+                    <Reveal>
+                        <h2 style={{fontSize: '35px',
+                                    color: 'white'
+                        }}>Crypt Crawlers</h2>
+                    </Reveal>
                 }
             </div>
             <img 
@@ -73,7 +83,7 @@ const CurrentProject = () => {
             {showDiv && 
             <div
                 style={expandedDiv}
-                onClick={handleDivClick}
+                onClick={() => { handleDivClick(); setHovered(false);}}
             >
                 <img
                     src={'../../public/dungeongenerateexample.png'} 
