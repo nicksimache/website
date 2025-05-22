@@ -1,19 +1,54 @@
 "use client";
 
 import type React from "react";
-
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 const technologies = [
-  { name: "Python", icon: "/icons/python.svg" },
-  { name: "C#", icon: "/icons/csharp.svg" },
-  { name: "Java", icon: "/icons/java.svg" },
-  { name: "JavaScript", icon: "/icons/javascript.svg" },
-  { name: "TypeScript", icon: "/icons/typescript.svg" },
-  { name: "Unity", icon: "/icons/unity.svg" },
-  { name: "React", icon: "/icons/react.svg" },
-  { name: "Node.js", icon: "/icons/nodejs.svg" },
+  {
+    name: "Python",
+    icon: "/icons/python1.svg",
+    altIcon: "/icons/python2.svg",
+  },
+  { name: "C#", icon: "/icons/csharp1.svg", altIcon: "/icons/csharp2.svg" },
+  { name: "Java", icon: "/icons/java1.svg", altIcon: "/icons/java2.svg" },
+  {
+    name: "JavaScript",
+    icon: "/icons/javascript1.svg",
+    altIcon: "/icons/javascript2.svg",
+  },
+  {
+    name: "TypeScript",
+    icon: "/icons/typescript1.svg",
+    altIcon: "/icons/typescript2.svg",
+  },
+  { name: "Unity", icon: "/icons/unity1.svg", altIcon: "/icons/unity2.svg" },
+  { name: "React", icon: "/icons/react1.svg", altIcon: "/icons/react2.svg" },
+  {
+    name: "Git",
+    icon: "/icons/git1.svg",
+    altIcon: "/icons/git2.svg",
+  },
+  {
+    name: "C",
+    icon: "/icons/c2.png",
+    altIcon: "/icons/c1.png",
+  },
+  {
+    name: "PyTorch",
+    icon: "/icons/pytorch1.png",
+    altIcon: "/icons/pytorch2.png",
+  },
+  {
+    name: "SQL",
+    icon: "/icons/sql1.png",
+    altIcon: "/icons/sql2.png",
+  },
+  {
+    name: "HTML/CSS",
+    icon: "/icons/html.png",
+    altIcon: "/icons/css.png",
+  },
 ];
 
 export function Technologies() {
@@ -29,10 +64,16 @@ export function Technologies() {
   );
 }
 
-function TechCard({ tech }: { tech: { name: string; icon: string } }) {
+function TechCard({
+  tech,
+}: {
+  tech: { name: string; icon: string; altIcon: string };
+}) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [showAltIcon, setShowAltIcon] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -43,6 +84,26 @@ function TechCard({ tech }: { tech: { name: string; icon: string } }) {
       y: e.clientY - rect.top,
     });
   };
+
+  useEffect(() => {
+    if (isHovering) {
+      intervalRef.current = setInterval(() => {
+        setShowAltIcon((prev) => !prev);
+      }, 500);
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      setShowAltIcon(false);
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isHovering]);
 
   return (
     <div
@@ -62,11 +123,14 @@ function TechCard({ tech }: { tech: { name: string; icon: string } }) {
       )}
       <div className="w-16 h-16 relative mb-2 z-10">
         <Image
-          src={tech.icon || "/placeholder.svg"}
+          src={showAltIcon ? tech.altIcon || tech.icon : tech.icon}
           alt={`${tech.name} icon`}
           fill
           sizes="64px"
-          style={{ objectFit: "contain" }}
+          style={{
+            objectFit: "contain",
+            transition: "opacity 0.2s ease-in-out",
+          }}
         />
       </div>
       <span className="text-sm text-center z-10">{tech.name}</span>

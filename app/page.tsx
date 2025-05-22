@@ -5,6 +5,7 @@ import { Technologies } from "./components/Technologies";
 import { TextHoverEffect } from "./components/ui/text-hover-effect";
 import { ProjectCard } from "./components/ProjectCard";
 import { ScrollReveal } from "./components/scroll-reveal";
+import Footer from "./components/Footer";
 
 const firaCode = Fira_Code({ subsets: ["latin"] });
 
@@ -35,6 +36,8 @@ export default function PortfolioPage() {
           <Projects />
         </ScrollReveal>
       </div>
+
+      <Footer />
     </main>
   );
 }
