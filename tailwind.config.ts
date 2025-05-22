@@ -19,6 +19,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        techcard: "#1c1c1c",
       },
     },
   },

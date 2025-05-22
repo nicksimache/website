@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Fira_Code } from "next/font/google";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 import { Technologies } from "./components/Technologies";
 import { TextHoverEffect } from "./components/ui/text-hover-effect";
+import { ProjectCard } from "./components/ProjectCard";
+import { ScrollReveal } from "./components/scroll-reveal";
 
 const firaCode = Fira_Code({ subsets: ["latin"] });
 
@@ -13,12 +15,25 @@ export const metadata: Metadata = {
 
 export default function PortfolioPage() {
   return (
-    <main className={`min-h-screen bg-black text-white ${firaCode.className}`}>
-      <div className="max-w-4xl mx-auto px-4 py-16 space-y-24">
-        <Header />
-        <Experience />
-        <Technologies />
-        <Projects />
+    <main
+      className={`min-h-screen bg-background text-white ${firaCode.className}`}
+    >
+      <div className="max-w-xl mx-auto px-4 py-16 space-y-24">
+        <ScrollReveal>
+          <Header />
+        </ScrollReveal>
+
+        <ScrollReveal delay={100}>
+          <Experience />
+        </ScrollReveal>
+
+        <ScrollReveal delay={200}>
+          <Technologies />
+        </ScrollReveal>
+
+        <ScrollReveal delay={300}>
+          <Projects />
+        </ScrollReveal>
       </div>
     </main>
   );
@@ -48,12 +63,6 @@ function Header() {
         >
           <Linkedin className="w-6 h-6" />
         </a>
-        <a
-          href="mailto:nicksimache@gmail.com"
-          className="hover:text-blue-400 transition-colors"
-        >
-          <Mail className="w-6 h-6" />
-        </a>
       </div>
     </header>
   );
@@ -62,16 +71,11 @@ function Header() {
 function Experience() {
   const experiences = [
     {
-      title: "Senior Developer",
-      company: "Tech Corp",
-      period: "2020 - Present",
-      description: "Led development of multiple high-impact projects.",
-    },
-    {
       title: "Full Stack Developer",
-      company: "StartUp Inc",
-      period: "2018 - 2020",
-      description: "Developed and maintained various web applications.",
+      company: "Freelance",
+      period: "May 2025 - Present",
+      description:
+        "Building a Web3 iOS application using React Native and Solidity, integrating smart contracts and wallet interactions.",
     },
   ];
 
@@ -96,14 +100,28 @@ function Experience() {
 function Projects() {
   const projects = [
     {
-      title: "E-commerce Platform",
-      description: "A full-stack e-commerce solution with React and Node.js.",
-      link: "https://github.com/yourusername/ecommerce-platform",
+      title: "Blindsight",
+      description:
+        "Smart glasses leveraging on-devie AI to allow the visually impaired to interact with the environment",
+      link: "https://github.com/PABLO-HACKERS/blindsight",
     },
     {
-      title: "Task Management App",
-      description: "A React Native mobile app for managing daily tasks.",
-      link: "https://github.com/yourusername/task-management-app",
+      title: "Get Clone",
+      description:
+        "Create a clone that looks, speaks, and acts like you, leveraging various Generative AI models",
+      link: "https://github.com/pahu2353/get-clone",
+    },
+    {
+      title: "Neural Network",
+      description:
+        "Simple linear regression model trained on handwritten digits built from scratch in python",
+      link: "https://github.com/nicksimache/neural-network",
+    },
+    {
+      title: "Study Buddies",
+      description:
+        "Mobile app that generates personalized quizzes based off of course content",
+      link: "https://github.com/PABLO-HACKERS/studybuddies",
     },
   ];
 
@@ -112,16 +130,9 @@ function Projects() {
       <h2 className="text-3xl font-semibold">Projects</h2>
       <div className="grid gap-6 md:grid-cols-2">
         {projects.map((project, index) => (
-          <a
-            key={index}
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors"
-          >
-            <h3 className="text-xl font-medium mb-2">{project.title}</h3>
-            <p className="text-gray-400">{project.description}</p>
-          </a>
+          <ScrollReveal key={index} delay={index * 100}>
+            <ProjectCard project={project} />
+          </ScrollReveal>
         ))}
       </div>
     </section>
