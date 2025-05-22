@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-xl mx-auto px-4 text-left">
         <p>
           Icons by{" "}
-          <a className="underline" href="icons8.com">
+          <a className="underline" href="https://icons8.com">
             Icons8🡥
           </a>
         </p>
