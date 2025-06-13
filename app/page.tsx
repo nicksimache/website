@@ -5,6 +5,7 @@ import { Technologies } from "./components/Technologies";
 import { TextHoverEffect } from "./components/ui/text-hover-effect";
 import { ProjectCard } from "./components/ProjectCard";
 import { ScrollReveal } from "./components/scroll-reveal";
+import { VideoBox } from "./components/video-box";
 import Footer from "./components/Footer";
 
 const firaCode = Fira_Code({ subsets: ["latin"] });
@@ -28,8 +29,8 @@ export default function PortfolioPage() {
           <Experience />
         </ScrollReveal>
 
-        <ScrollReveal delay={200}>
-          <Technologies />
+        <ScrollReveal delay={150}>
+          <FeaturedWork />
         </ScrollReveal>
 
         <ScrollReveal delay={300}>
@@ -95,6 +96,24 @@ function Experience() {
             <p>{exp.description}</p>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function FeaturedWork() {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-3xl font-semibold">Currently Working On</h2>
+      <p className="text-gray-400 mb-4">Multiplayer Dungeon Crawler in Unity</p>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <VideoBox
+          imageSrc="/icons/temp.png"
+          videoSrc="/icons/vid.mp4"
+          altText="Multiplayer Dungeon Crawler Demo"
+          className="md:col-span-2"
+        />
       </div>
     </section>
   );
