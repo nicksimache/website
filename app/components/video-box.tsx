@@ -1,5 +1,7 @@
 "use client";
 
+import type React from "react";
+
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
@@ -41,7 +43,9 @@ export function VideoBox({
     setVideoError(false);
   };
 
-  const handleVideoError = (e: any) => {
+  const handleVideoError = (
+    e: React.SyntheticEvent<HTMLVideoElement, Event>
+  ) => {
     console.error("Video loading error:", e);
     setVideoError(true);
     setVideoLoaded(false);
