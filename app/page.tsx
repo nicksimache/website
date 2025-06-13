@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Fira_Code } from "next/font/google";
 import { Github, Linkedin } from "lucide-react";
-import { Technologies } from "./components/Technologies";
 import { TextHoverEffect } from "./components/ui/text-hover-effect";
 import { ProjectCard } from "./components/ProjectCard";
 import { ScrollReveal } from "./components/scroll-reveal";
