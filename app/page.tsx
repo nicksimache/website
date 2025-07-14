@@ -5,7 +5,6 @@ import { TextHoverEffect } from "./components/ui/text-hover-effect";
 import { ProjectCard } from "./components/ProjectCard";
 import { ScrollReveal } from "./components/scroll-reveal";
 import { VideoBox } from "./components/video-box";
-import Footer from "./components/Footer";
 
 const firaCode = Fira_Code({ subsets: ["latin"] });
 
