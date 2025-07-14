@@ -36,8 +36,6 @@ export default function PortfolioPage() {
           <Projects />
         </ScrollReveal>
       </div>
-
-      <Footer />
     </main>
   );
 }
