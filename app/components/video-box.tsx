@@ -24,6 +24,12 @@ export function VideoBox({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    if (videoRef.current && videoSrc) {
+      videoRef.current.load();
+    }
+  }, [videoSrc]);
+
+  useEffect(() => {
     if (videoRef.current && videoLoaded && !videoError) {
       if (isHovering) {
         videoRef.current.currentTime = 0;
