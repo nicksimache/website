@@ -17,18 +17,25 @@ export function useScrollReveal({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reducedMotion) {
+      setIsVisible(true);
+      return;
+    }
+
+    let revealTimer: ReturnType<typeof setTimeout> | undefined;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Add a small delay if specified
           if (delay) {
-            setTimeout(() => {
+            revealTimer = setTimeout(() => {
               setIsVisible(true);
             }, delay);
           } else {
             setIsVisible(true);
           }
-          // Once the element is visible, we can stop observing it
           if (ref.current) {
             observer.unobserve(ref.current);
           }
@@ -46,9 +53,13 @@ export function useScrollReveal({
     }
 
     return () => {
+      if (revealTimer) {
+        clearTimeout(revealTimer);
+      }
       if (currentRef) {
         observer.unobserve(currentRef);
       }
+      observer.disconnect();
     };
   }, [threshold, rootMargin, delay]);
 
