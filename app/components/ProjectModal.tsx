@@ -1,20 +1,24 @@
 "use client";
 
 import { ArrowUpRight, X } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import { motion, useReducedMotion } from "motion/react";
 import type { Project } from "../data/projects";
-import { TechnologyTags } from "./TechnologyTags";
-import { VideoBox } from "./video-box";
 
 export function ProjectModal({
   project,
   onClose,
+  origin,
 }: {
   project: Project;
   onClose: () => void;
+  origin?: DOMRect;
 }) {
   const modalRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     document.body.classList.add("modal-open");
@@ -47,7 +51,7 @@ export function ProjectModal({
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
       className="modal-backdrop"
       role="presentation"
@@ -55,9 +59,14 @@ export function ProjectModal({
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <div
+      <motion.div
         ref={modalRef}
         className="project-modal"
+        initial={reducedMotion || !origin ? false : {
+          clipPath: `inset(${Math.max(0, origin.top)}px ${Math.max(0, window.innerWidth - origin.right)}px ${Math.max(0, window.innerHeight - origin.bottom)}px ${Math.max(0, origin.left)}px)`,
+        }}
+        animate={{ clipPath: "inset(0px 0px 0px 0px)" }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-modal-title"
@@ -71,16 +80,12 @@ export function ProjectModal({
         >
           <X size={20} />
         </button>
-        <VideoBox
-          className="modal-media"
-          imageSrc={project.imageSrc}
-          videoSrc={project.videoSrc}
-          altText={project.imageAlt}
-          eager
-        />
+        <div className="modal-media">
+          <Image src={project.imageSrc} alt={project.imageAlt}
+            width={1600} height={900} sizes="(max-width: 640px) 100vw, 48vw" priority />
+        </div>
         <div className="modal-content">
           <h2 id="project-modal-title">{project.title}</h2>
-          <TechnologyTags technologies={project.technologies} />
           <p className="modal-description">{project.description}</p>
           {(project.githubUrl || project.liveUrl) && (
             <div className="modal-links">
@@ -107,7 +112,8 @@ export function ProjectModal({
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
+    , document.body
   );
 }

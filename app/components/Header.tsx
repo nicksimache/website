@@ -3,47 +3,52 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const sections = ["experience", "projects"] as const;
+const sections = ["projects", "experience", "travel"] as const;
 
 export function Header() {
   const [activeSection, setActiveSection] = useState<(typeof sections)[number]>(
-    "experience"
+    "projects"
   );
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const updateScrolled = () => setScrolled(window.scrollY > 8);
-    updateScrolled();
-    window.addEventListener("scroll", updateScrolled, { passive: true });
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveSection(visible.target.id as typeof activeSection);
-      },
-      { rootMargin: "-25% 0px -60% 0px", threshold: [0, 0.25, 0.5] }
-    );
-
-    sections.forEach((id) => {
-      const section = document.getElementById(id);
-      if (section) observer.observe(section);
-    });
+    const updateNavigation = () => {
+      setScrolled(window.scrollY > 8);
+      const headerHeight = document.querySelector("header")?.getBoundingClientRect().height ?? 64;
+      let current: (typeof sections)[number] = "projects";
+      for (const id of sections) {
+        const section = document.getElementById(id);
+        if (section && section.getBoundingClientRect().top <= headerHeight + 48) {
+          current = id;
+        }
+      }
+      if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        current = "travel";
+      }
+      setActiveSection(current);
+    };
+    updateNavigation();
+    window.addEventListener("scroll", updateNavigation, { passive: true });
+    window.addEventListener("resize", updateNavigation);
+    const resizeObserver = new ResizeObserver(updateNavigation);
+    resizeObserver.observe(document.body);
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
 
     return () => {
-      window.removeEventListener("scroll", updateScrolled);
-      observer.disconnect();
+      window.removeEventListener("scroll", updateNavigation);
+      window.removeEventListener("resize", updateNavigation);
+      window.removeEventListener("keydown", closeOnEscape);
+      resizeObserver.disconnect();
     };
   }, []);
 
   return (
     <header className={`site-header page-load-fade${scrolled ? " scrolled" : ""}`}>
       <div className="header-inner">
-        <a className="brand" href="#experience" aria-label="Nick Sima, home">
-          Nick Sima<span className="brand-mark">.</span>
-        </a>
         <button
           className="menu-button"
           type="button"
@@ -65,7 +70,18 @@ export function Header() {
               className={`nav-link${activeSection === section ? " active" : ""}`}
               href={`#${section}`}
               aria-current={activeSection === section ? "location" : undefined}
-              onClick={() => setMenuOpen(false)}
+              onClick={(event) => {
+                const target = document.getElementById(section);
+                if (!target) return;
+                event.preventDefault();
+                setMenuOpen(false);
+                setActiveSection(section);
+                window.history.pushState(null, "", `#${section}`);
+                target.scrollIntoView({
+                  behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+                  block: "start",
+                });
+              }}
             >
               {section[0].toUpperCase() + section.slice(1)}
             </a>

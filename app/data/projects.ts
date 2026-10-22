@@ -7,6 +7,7 @@ export interface Project {
   id: string;
   title: string;
   summary: string;
+  year?: number;
   description: string;
   imageSrc: string;
   imageAlt: string;
@@ -20,9 +21,10 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "lavender",
+    year: 2026,
     title: "Lavender",
     summary:
-      "An AI-assisted code workspace made to vibe code complex Unity projects.",
+      "Vibe code complex Unity games froms scratch in an AI-assissted IDE",
     description:
       "Lavender is a desktop code-intelligence assistant for C# projects, with an initial focus on Unity and .NET codebases. It gives an AI assistant structural access to an entire project instead of relying on a few files pasted into a chat window.",
     imageSrc: "/projects/lavender_thumbnail.png",
@@ -99,6 +101,7 @@ export const projects: Project[] = [
   },
   {
     id: "blindsight",
+    year: 2025,
     title: "Blindsight",
     summary: "AI-assisted smart glasses that help visually impaired users understand their surroundings.",
     description:
@@ -124,6 +127,7 @@ export const projects: Project[] = [
   },
   {
     id: "get-clone",
+    year: 2025,
     title: "Get Clone",
     summary: "A generative AI experiment for creating a personalized digital clone.",
     description:
@@ -175,6 +179,7 @@ export const projects: Project[] = [
   },
   {
     id: "study-buddies",
+    year: 2024,
     title: "Study Buddies",
     summary: "A mobile study tool that generates personalized quizzes from course material.",
     description:

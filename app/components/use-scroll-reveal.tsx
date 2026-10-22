@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+const motionQuery = "(prefers-reduced-motion: reduce)";
+function subscribeToMotionChange(onChange: () => void) {
+  const query = window.matchMedia(motionQuery);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
 
 interface UseScrollRevealProps {
   threshold?: number;
@@ -15,13 +22,14 @@ export function useScrollReveal({
 }: UseScrollRevealProps = {}) {
   const ref = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const reducedMotion = useSyncExternalStore(
+    subscribeToMotionChange,
+    () => window.matchMedia(motionQuery).matches,
+    () => false
+  );
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
     if (reducedMotion) {
-      setIsVisible(true);
       return;
     }
 
@@ -61,7 +69,7 @@ export function useScrollReveal({
       }
       observer.disconnect();
     };
-  }, [threshold, rootMargin, delay]);
+  }, [threshold, rootMargin, delay, reducedMotion]);
 
-  return { ref, isVisible };
+  return { ref, isVisible: reducedMotion || isVisible };
 }

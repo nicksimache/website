@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { ExperienceSection } from "./components/ExperienceSection";
-import { Header } from "./components/Header";
+import { ExperienceSection, IntroSection } from "./components/ExperienceSection";
 import { ProjectGrid } from "./components/ProjectGrid";
-import { ScrollReveal } from "./components/scroll-reveal";
+import { TravelSection } from "./components/TravelSection";
 
 export const metadata: Metadata = {
   title: "Nick Sima — Software Engineer",
@@ -13,17 +12,15 @@ export const metadata: Metadata = {
 export default function PortfolioPage() {
   return (
     <>
-      <Header />
       <main>
-        <ExperienceSection />
+        <IntroSection />
         <ProjectGrid />
+        <ExperienceSection />
+        <TravelSection />
       </main>
-      <ScrollReveal>
-        <footer className="site-footer">
-          <p>Nick Sima</p>
-          <a href="#experience">Back to top</a>
-        </footer>
-      </ScrollReveal>
+      <footer className="site-footer">
+        <p>last updated <time dateTime="2026-10-22">22/10/2026</time></p>
+      </footer>
     </>
   );
 }

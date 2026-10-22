@@ -1,16 +1,15 @@
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 import { ScrollReveal } from "./scroll-reveal";
 
-export function ExperienceSection() {
+export function IntroSection() {
   return (
-    <section className="section experience-section" id="experience">
+    <section className="section intro-section" aria-label="About Nick">
       <div className="profile-flow">
         <ScrollReveal className="intro-copy" threshold={0.05}>
           <h1>Nick Sima</h1>
           <p>
-            I&apos;m a Computer Science and Mathematics student interested in
-            software engineering, machine learning, and game
-            development.
+            I&apos;m a Mathematics and Computer Science student at the University of Victoria
+            interested in agentic AI and quantum computing.
           </p>
           <div className="intro-links" aria-label="Social links">
             <a
@@ -32,11 +31,15 @@ export function ExperienceSection() {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal className="experience-column" delay={100} threshold={0.05}>
-          <div className="section-heading">
-            <h2>Experience</h2>
-            <p></p>
-          </div>
+      </div>
+    </section>
+  );
+}
+
+export function ExperienceSection() {
+  return (
+    <section className="section experience-section" id="experience" aria-label="Experience">
+        <ScrollReveal className="experience-column" threshold={0.05}>
           <article className="experience-card">
             <div className="experience-meta">
               <div>
@@ -53,7 +56,6 @@ export function ExperienceSection() {
             </p>
           </article>
         </ScrollReveal>
-      </div>
     </section>
   );
 }

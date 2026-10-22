@@ -95,7 +95,6 @@ function TechCard({
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
-      setShowAltIcon(false);
     }
 
     return () => {
@@ -111,7 +110,10 @@ function TechCard({
       className="flex flex-col items-center justify-center p-4 bg-techcard rounded-lg transition-colors relative overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      onMouseLeave={() => {
+        setIsHovering(false);
+        setShowAltIcon(false);
+      }}
     >
       {isHovering && (
         <div
