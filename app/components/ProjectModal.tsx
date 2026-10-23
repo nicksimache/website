@@ -4,13 +4,12 @@ import { ArrowUpRight, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { motion, useReducedMotion } from "motion/react";
 import type { Project } from "../data/projects";
+import { HighlightedText } from "./HighlightedText";
 
 export function ProjectModal({
   project,
   onClose,
-  origin,
 }: {
   project: Project;
   onClose: () => void;
@@ -18,7 +17,6 @@ export function ProjectModal({
 }) {
   const modalRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     document.body.classList.add("modal-open");
@@ -59,17 +57,12 @@ export function ProjectModal({
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <motion.div
+      <div
         ref={modalRef}
         className="project-modal"
-        initial={reducedMotion || !origin ? false : {
-          clipPath: `inset(${Math.max(0, origin.top)}px ${Math.max(0, window.innerWidth - origin.right)}px ${Math.max(0, window.innerHeight - origin.bottom)}px ${Math.max(0, origin.left)}px)`,
-        }}
-        animate={{ clipPath: "inset(0px 0px 0px 0px)" }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="project-modal-title"
+        aria-label={`${project.title} details`}
       >
         <button
           ref={closeRef}
@@ -80,12 +73,25 @@ export function ProjectModal({
         >
           <X size={20} />
         </button>
-        <div className="modal-media">
-          <Image src={project.imageSrc} alt={project.imageAlt}
-            width={1600} height={900} sizes="(max-width: 640px) 100vw, 48vw" priority />
+        <div className={`modal-media${project.id === "lavender" ? " lavender-cropped" : ""}`}>
+          {project.id === "lavender" ? (
+            <video
+              className="modal-still-video"
+              src="/projects/lavender_demo.mp4"
+              poster="/projects/lavender-demo-still.jpg"
+              aria-label="Paused frame of the Lavender demo"
+              preload="none"
+              muted
+              playsInline
+              onPlay={(event) => event.currentTarget.pause()}
+            />
+          ) : (
+            <Image src={project.imageSrc} alt={project.imageAlt}
+              width={1600} height={900} sizes="(max-width: 640px) 100vw, 48vw" priority />
+          )}
         </div>
         <div className="modal-content">
-          <h2 id="project-modal-title">{project.title}</h2>
+          <h3 className="info-heading">Overview</h3>
           <p className="modal-description">{project.description}</p>
           {(project.githubUrl || project.liveUrl) && (
             <div className="modal-links">
@@ -101,18 +107,37 @@ export function ProjectModal({
               )}
             </div>
           )}
+          {project.article ? (
+            <article className="project-article project-writeup" aria-label={`${project.title} write-up`}>
+              {project.article.map((block, index) => {
+                if (block.type === "heading") return <h3 className="writeup-heading" key={index}>{block.text}</h3>;
+                if (block.type === "paragraph") return <p key={index}><HighlightedText text={block.text} /></p>;
+                if (block.type === "list") return <ul key={index}>{block.items.map((item) => <li key={item}><HighlightedText text={item} /></li>)}</ul>;
+                return (
+                  <div className="article-images" key={index}>
+                    {block.images.map((image) => (
+                      <figure key={image.src}>
+                        <Image src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(max-width: 640px) 90vw, 780px" />
+                      </figure>
+                    ))}
+                  </div>
+                );
+              })}
+            </article>
+          ) : (
           <div className="project-article">
             {project.details.map((detail) => (
               <section className="article-section" key={detail.title}>
                 <h3>{detail.title}</h3>
                 {detail.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+                  <p key={paragraph}><HighlightedText text={paragraph} /></p>
                 ))}
               </section>
             ))}
           </div>
+          )}
         </div>
-      </motion.div>
+      </div>
     </div>
     , document.body
   );

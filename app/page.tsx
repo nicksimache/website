@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ExperienceSection, IntroSection } from "./components/ExperienceSection";
+import { IntroSection } from "./components/ExperienceSection";
 import { ProjectGrid } from "./components/ProjectGrid";
 import { TravelSection } from "./components/TravelSection";
 
@@ -15,7 +15,6 @@ export default function PortfolioPage() {
       <main>
         <IntroSection />
         <ProjectGrid />
-        <ExperienceSection />
         <TravelSection />
       </main>
       <footer className="site-footer">

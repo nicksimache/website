@@ -1,0 +1,55 @@
+.background {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100svh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #e4eee8;
+}
+
+.clip { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+
+.aurora {
+  --aurora: repeating-linear-gradient(100deg, #064e3b 10%, #065f46 15%, #14532d 20%, #047857 25%, #022c22 30%);
+  --dark-gradient: repeating-linear-gradient(100deg, #000 0%, #000 7%, transparent 10%, transparent 12%, #000 16%);
+  position: absolute;
+  inset: -10px;
+  background-image: var(--dark-gradient), var(--aurora);
+  background-size: 300%, 200%;
+  background-position: 50% 50%, 50% 50%;
+  opacity: 0.55;
+  filter: blur(10px);
+}
+
+.aurora::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--dark-gradient), var(--aurora);
+  background-size: 200%, 100%;
+  mix-blend-mode: difference;
+  animation: aurora var(--animation-speed) linear infinite;
+}
+
+.radial { mask-image: radial-gradient(ellipse at 100% 0%, #000 10%, transparent 70%); }
+.content { position: relative; z-index: 1; }
+
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to { background-position: 350% 50%, 350% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora::after { animation: none; }
+}
+
+.light { background: #f5faff; color: #18344f; }
+.light .aurora {
+  --aurora: repeating-linear-gradient(100deg, #dbeeff 10%, #a9d3f5 15%, #eef7ff 20%, #c5e2fa 25%, #deeffc 30%);
+  --dark-gradient: repeating-linear-gradient(100deg, #fff 0%, #fff 7%, transparent 10%, transparent 12%, #fff 16%);
+  opacity: 0.8;
+}
+.light .aurora::after { mix-blend-mode: multiply; }

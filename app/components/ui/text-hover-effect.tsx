@@ -5,9 +5,17 @@ import { motion } from "framer-motion";
 export const TextHoverEffect = ({
   text,
   duration,
+  viewBox = "0 0 300 60",
+  fill = "transparent",
+  strokeWidth = 0.3,
+  hoverColor,
 }: {
   text: string;
   duration?: number;
+  viewBox?: string;
+  fill?: string;
+  strokeWidth?: number;
+  hoverColor?: string;
   automatic?: boolean;
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -32,7 +40,7 @@ export const TextHoverEffect = ({
       ref={svgRef}
       width="100%"
       height="100%"
-      viewBox="0 0 300 60"
+      viewBox={viewBox}
       xmlns="http://www.w3.org/2000/svg"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -50,11 +58,11 @@ export const TextHoverEffect = ({
         >
           {hovered && (
             <>
-              <stop offset="0%" stopColor={"var(--yellow-500)"} />
-              <stop offset="25%" stopColor={"var(--red-500)"} />
-              <stop offset="50%" stopColor={"var(--blue-500)"} />
-              <stop offset="75%" stopColor={"var(--cyan-500)"} />
-              <stop offset="100%" stopColor={"var(--violet-500)"} />
+              <stop offset="0%" stopColor={hoverColor ?? "var(--yellow-500)"} />
+              <stop offset="25%" stopColor={hoverColor ?? "var(--red-500)"} />
+              <stop offset="50%" stopColor={hoverColor ?? "var(--blue-500)"} />
+              <stop offset="75%" stopColor={hoverColor ?? "var(--cyan-500)"} />
+              <stop offset="100%" stopColor={hoverColor ?? "var(--violet-500)"} />
             </>
           )}
         </linearGradient>
@@ -88,42 +96,34 @@ export const TextHoverEffect = ({
         </mask>
       </defs>
       <text
-        x="46.5%"
+        x="50%"
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
-        strokeWidth="0.3"
+        strokeWidth={strokeWidth}
         className="font-[helvetica] font-bold stroke-neutral-200 dark:stroke-neutral-800 fill-transparent text-6xl  "
         style={{ opacity: hovered ? 0.7 : 0 }}
       >
         {text}
       </text>
-      <motion.text
-        x="46.5%"
+      <text
+        style={{ fill }}
+        x="50%"
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
-        strokeWidth="0.3"
+        strokeWidth={strokeWidth}
         className="font-[helvetica] font-bold fill-transparent text-6xl   stroke-neutral-200 dark:stroke-neutral-800"
-        initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
-        animate={{
-          strokeDashoffset: 0,
-          strokeDasharray: 1000,
-        }}
-        transition={{
-          duration: 4,
-          ease: "easeInOut",
-        }}
       >
         {text}
-      </motion.text>
+      </text>
       <text
-        x="46.5%"
+        x="50%"
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
         stroke="url(#textGradient)"
-        strokeWidth="0.3"
+        strokeWidth={strokeWidth}
         mask="url(#textMask)"
         className="font-[helvetica] font-bold fill-transparent text-6xl  "
       >

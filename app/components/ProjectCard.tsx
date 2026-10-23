@@ -1,15 +1,15 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import { useState, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 import type { Project } from "../data/projects";
-import { VideoBox } from "./video-box";
+import { ProjectPreview } from "./ProjectPreview";
 
 const hoverColors: Record<string, string> = {
   lavender: "#b494ed",
-  blindsight: "#b5b5b5",
+  blindsight: "#00cfff",
   "get-clone": "#b5b5b5",
-  "study-buddies": "#91bd87",
+  vertigis: "#9ccff3",
 };
 
 export function ProjectCard({
@@ -19,25 +19,16 @@ export function ProjectCard({
   project: Project;
   onOpen: (project: Project, trigger: HTMLButtonElement) => void;
 }) {
-  const [isHovered, setIsHovered] = useState(false);
   return (
     <button
       className="project-card"
       data-project={project.id}
       style={{ "--project-hover": hoverColors[project.id] ?? "#b5b5b5" } as CSSProperties}
       type="button"
-      onPointerEnter={() => setIsHovered(true)}
-      onPointerLeave={() => setIsHovered(false)}
       onClick={(event) => onOpen(project, event.currentTarget)}
       aria-label={`Open details for ${project.title}`}
     >
-      <VideoBox
-        imageSrc={project.imageSrc}
-        videoSrc={project.videoSrc}
-        altText={project.imageAlt}
-        active={isHovered}
-        startTime={project.id === "get-clone" ? 0.2 : 0}
-      />
+      <ProjectPreview id={project.id} />
       <div className="project-card-content">
         <div className="project-title-row">
           <div className="project-title-with-year">

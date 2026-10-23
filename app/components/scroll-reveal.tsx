@@ -1,8 +1,4 @@
-"use client";
-
 import type { ReactNode } from "react";
-import { useScrollReveal } from "./use-scroll-reveal";
-import { cn } from "@/lib/utils";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -12,29 +8,6 @@ interface ScrollRevealProps {
   rootMargin?: string;
 }
 
-export function ScrollReveal({
-  children,
-  className,
-  delay = 0,
-  threshold = 0.1,
-  rootMargin = "0px",
-}: ScrollRevealProps) {
-  const { ref, isVisible } = useScrollReveal({
-    threshold,
-    rootMargin,
-    delay,
-  });
-
-  return (
-    <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className={cn(
-        "scroll-reveal",
-        isVisible && "is-visible",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+export function ScrollReveal({ children, className }: ScrollRevealProps) {
+  return <div className={className}>{children}</div>;
 }

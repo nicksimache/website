@@ -9,8 +9,8 @@ export async function TravelSection() {
     .sort((a, b) => a.localeCompare(b))
     .map((file) => ({
       src: `/travel/${encodeURIComponent(file)}`,
-      caption: file === "concert.png" ? "Bring me the horizon" : file === "shanghai.jpeg" ? "The bund" : file.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " "),
-      place: file === "concert.png" ? "Toronto - Canada" : file === "shanghai.jpeg" ? "Shanghai - China" : "",
+      caption: file === "vincom-mega-mall.jpg" ? "Vincom mega mall" : file === "concert.png" ? "Bring me the horizon" : file === "shanghai.jpeg" ? "The bund" : file.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " "),
+      place: file === "vincom-mega-mall.jpg" ? "Hanoi - Vietnam" : file === "concert.png" ? "Toronto - Canada" : file === "shanghai.jpeg" ? "Shanghai - China" : "",
     }));
 
   return (
