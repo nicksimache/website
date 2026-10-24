@@ -73,7 +73,7 @@ export function ProjectModal({
         >
           <X size={20} />
         </button>
-        <div className={`modal-media${project.id === "lavender" ? " lavender-cropped" : ""}`}>
+        {project.id !== "blindsight" && <div className={`modal-media${project.id === "lavender" ? " lavender-cropped" : ""}`}>
           {project.id === "lavender" ? (
             <video
               className="modal-still-video"
@@ -89,7 +89,7 @@ export function ProjectModal({
             <Image src={project.imageSrc} alt={project.imageAlt}
               width={1600} height={900} sizes="(max-width: 640px) 100vw, 48vw" priority />
           )}
-        </div>
+        </div>}
         <div className="modal-content">
           <h3 className="info-heading">Overview</h3>
           <p className="modal-description">{project.description}</p>

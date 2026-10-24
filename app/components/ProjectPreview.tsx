@@ -6,7 +6,7 @@ import { AuroraBackground } from "@/components/ui/aurora";
 import { TextHoverEffect } from "./ui/text-hover-effect";
 import styles from "./ProjectPreview.module.css";
 
-function PreviewVideo({ src, poster, active }: { src: string; poster: string; active: boolean }) {
+function PreviewVideo({ src, poster, active }: { src: string; poster?: string; active: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const video = ref.current;
@@ -29,7 +29,7 @@ function PreviewVideo({ src, poster, active }: { src: string; poster: string; ac
       video.pause();
     };
   }, [active]);
-  return <video ref={ref} src={src} poster={poster} muted loop playsInline preload="metadata" />;
+  return <video ref={ref} src={src} poster={poster} muted loop playsInline preload={poster ? "metadata" : "auto"} />;
 }
 
 export function ProjectPreview({ id }: { id: string }) {
@@ -48,7 +48,7 @@ export function ProjectPreview({ id }: { id: string }) {
             <PreviewVideo
               active={hovered}
               src={id === "lavender" ? "/projects/lavender_demo.mp4" : "/projects/getclone_video_cropped.mp4"}
-              poster={id === "lavender" ? "/projects/lavender_thumbnail.png" : "/projects/getclone_thumbnail.png"}
+              poster={id === "lavender" ? undefined : "/projects/getclone_thumbnail.png"}
             />
           </div>
         </div>
