@@ -5,6 +5,7 @@ import { TravelCarousel } from "./TravelCarousel";
 const photoOrder = ["concert.png", "shanghai.jpeg", "5040-peak.jpg", "vincom-mega-mall.jpg", "zhujiajiao-ancient-town.jpg"];
 
 const photoDetails: Record<string, { caption: string; place: string }> = {
+  "washington-square-park.jpg": { caption: "Washington Square Park", place: "New York City - USA" },
   "5040-peak.jpg": { caption: "5040 Peak", place: "Vancouver Island - Canada" },
   "zhujiajiao-ancient-town.jpg": { caption: "Zhujiajiao Ancient Town", place: "Shanghai - China" },
   "vincom-mega-mall.jpg": { caption: "Vincom mega mall", place: "Hanoi - Vietnam" },
